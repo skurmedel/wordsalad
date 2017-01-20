@@ -22,3 +22,9 @@ class TestTokenisation(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             splitWestern(txt, whitespace="")
+    
+    def test_splitWestern_whitespace_not_a_string(self):
+        txt = "ab1c d1ef"
+
+        lst = list(splitWestern(txt, whitespace=1))
+        self.assertListEqual(["ab", "c d", "ef"], lst)
