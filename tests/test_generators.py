@@ -1,7 +1,8 @@
 import unittest
 
 from wordsalad import WordSaladMatrixBuilder
-from wordsalad.generators import draw_follower
+from wordsalad.generators import draw_follower, chain
+from itertools import islice
 
 
 def _get_static_string_mat():
@@ -55,3 +56,34 @@ class TestDrawFollower(unittest.TestCase):
             else:
                 self.fail("Drew another follower.")
         self.assertGreater(float(ams_count)/samples, 0.40)
+
+class TestChain(unittest.TestCase):
+
+    def test_chain_ends_on_zero_probs(self):
+        builder = WordSaladMatrixBuilder()
+        builder.count_follower("hey", "man")
+        builder.count_follower("man", "end")
+
+        mat = builder.build_matrix()
+
+        lst = list(chain(mat, "hey"))
+        self.assertListEqual(["hey", "man", "end"], lst)
+    
+    def test_chain_never_ends_on_loop(self):
+        builder = WordSaladMatrixBuilder()
+        builder.count_follower("hey", "man")
+        builder.count_follower("man", "hey")
+
+        mat = builder.build_matrix()
+
+        n = 111
+        lst = list(islice(chain(mat, "hey"), 2 * n))
+        self.assertListEqual(["hey", "man"] * n, lst)
+    
+    def test_chain_missing_word_yields_exception(self):
+        builder = WordSaladMatrixBuilder()
+        builder.add_word("goat")
+        mat = builder.build_matrix()
+
+        with self.assertRaises(ValueError):
+            list(chain(mat, "cow"))
