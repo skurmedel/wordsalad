@@ -14,7 +14,7 @@ class TestTokenisation(unittest.TestCase):
         txt = "A high powered mutant"
 
         with self.assertRaises(ValueError):
-            splitWestern(txt, whitespace="")
+            list(splitWestern(txt, whitespace=""))
     
     def test_splitWestern_whitespace_not_a_string(self):
         txt = "ab1c d1ef"
