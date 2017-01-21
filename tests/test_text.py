@@ -21,3 +21,24 @@ class TestTokenisation(unittest.TestCase):
 
         lst = list(splitWestern(txt, whitespace=1))
         self.assertListEqual(["ab", "c d", "ef"], lst)
+    
+    def test_splitWestern(self):
+        cases = [
+            (
+                "Swiss cheese is a type of dairy product.[5]", 
+                ["Swiss", "cheese", "is", "a", "type", "of", "dairy", "product", ".", "[", "5", "]"]
+            ),
+            (
+                "Who are you... he said.", 
+                ["Who", "are", "you", ".", ".", ".", "he", "said", "."]
+            ),
+            (
+                "A list of (approved) items follows:",
+                ["A", "list", "of", "(", "approved", ")", "items", "follows", ":"]
+            )
+        ]
+
+        for s, expected in cases:
+            actual = list(splitWestern(s))
+            self.assertListEqual(expected, actual)
+            
