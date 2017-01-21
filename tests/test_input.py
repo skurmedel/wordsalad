@@ -1,4 +1,4 @@
-from wordsalad.text import splitWestern
+from wordsalad.input import splitWestern
 import unittest
 
 class TestTokenisation(unittest.TestCase):
