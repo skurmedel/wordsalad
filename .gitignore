@@ -1,6 +1,5 @@
-<<<<<<< HEAD
+/.vscode
 
-=======
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -90,8 +89,3 @@ ENV/
 
 # Rope project settings
 .ropeproject
->>>>>>> a604b5f261db982ba075f7243da82d9de3a09e83
-
-
-*.pyc
-/.vscode
