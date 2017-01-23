@@ -23,7 +23,7 @@ of words can be entered as well (this often makes the text more plausible.)
 The terminology used in the library follows:
 
 | Term | Explanation |
-----------------------
+|------|----------------|
 |corpus| The text material we "train" the markov chains on. |
 |word  | A word is simply a unit found in the input corpus, it can be a single character, a group of characters, or whatever.|
 |follower| A word (see above) that follows another word. |
