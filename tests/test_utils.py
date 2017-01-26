@@ -39,4 +39,4 @@ class TestJoinGermanic(unittest.TestCase):
 
         for input, expected, kwargs in cases:
             actual = joinGermanic(input, **kwargs)
-            self.assertEqual(expected, actual)
+            self.assertEqual(expected, actual, "Expected |{0}|".format(expected))
