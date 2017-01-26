@@ -19,6 +19,11 @@ class TestJoinGermanic(unittest.TestCase):
                 ["abracadabra", ".", ".", ".", "abracadabra"],
                 "abracadabra... Abracadabra",
                 {"capitalize": True}
+            ),
+            (
+                ["Whose", "burger", "is", "that", "?", "john", "'", "s", "."],
+                "Whose burger is that? john's.",
+                {"capitalize": True, "concat":"'"}
             )
         ]
 
