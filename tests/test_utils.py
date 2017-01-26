@@ -28,6 +28,12 @@ class TestJoinGermanic(unittest.TestCase):
                 ["Whose", "burger", "is", "that", "?", "john", "'", "s", "."],
                 "Whose burger is that? john's.",
                 {"capitalize": True, "concat":"'"}
+            ),
+            (
+                # Nested quoting is handled.
+                ["\"", "Yo", "man", "you", "'", "chill", "'", "?"],
+                "\"Yo man, you 'chill'?\"",
+                {"concat": "", "quoteChars": "\"'"}
             )
         ]
 

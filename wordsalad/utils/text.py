@@ -13,8 +13,7 @@ def joinGermanic(iterable, capitalize=True, quoteChars="\"", concat="'"):
     The following conditions yield a space before the current "word":
 
         -   Current is not "." and the previous was ".".
-        -   Current is in quoteChars and deemed a start quote.
-        -   Current is a word not in quoteChars, and is not ".".
+        -   Previous is not in quoteChars or deemed a start quote.
     
     Any word in concat, will never have spaces around it.
 
@@ -25,6 +24,7 @@ def joinGermanic(iterable, capitalize=True, quoteChars="\"", concat="'"):
     For example if quoteChars="'", it won't know whether an apostrophe is an apostrophe or a quote.
     """
     pass
+            
 
 def mojibakify(s, bit_rot = True):
 	'''Takes an input string, destroys it and returns a byte object.
