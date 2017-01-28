@@ -14,8 +14,8 @@ class TestWordSaladMatrixBuilder(unittest.TestCase):
         self.assertEqual(mat.probability(1, 2), 1)
         self.assertEqual(mat.probability(2, 3), 1)
         
-        for w in mat.probabilities(3):
-            self.assertEqual(w, 0)
+        probs3 = mat.probabilities(3)
+        self.assertEqual(probs3.sum(), 0)
     
     def test_count_followers_in_sequence_endmarker(self):
         marker = "end"
