@@ -1,28 +1,28 @@
-from wordsalad.input import splitGermanic
+from wordsalad.input import split_germanic
 import unittest
 
 class TestTokenisation(unittest.TestCase):
     
-    def test_splitGermanic_punctuation_treated_like_one_word(self):
+    def test_split_germanic_punctuation_treated_like_one_word(self):
         txt = "abc. def.,"
 
-        res = list(splitGermanic(txt))
+        res = list(split_germanic(txt))
 
         self.assertListEqual(["abc", ".", "def", ".", ","], res)
     
-    def test_splitGermanic_fails_on_empty_whitespace(self):
+    def test_split_germanic_fails_on_empty_whitespace(self):
         txt = "A high powered mutant"
 
         with self.assertRaises(ValueError):
-            list(splitGermanic(txt, whitespace=""))
+            list(split_germanic(txt, whitespace=""))
     
-    def test_splitGermanic_whitespace_not_a_string(self):
+    def test_split_germanic_whitespace_not_a_string(self):
         txt = "ab1c d1ef"
 
-        lst = list(splitGermanic(txt, whitespace=1))
+        lst = list(split_germanic(txt, whitespace=1))
         self.assertListEqual(["ab", "c d", "ef"], lst)
     
-    def test_splitGermanic(self):
+    def test_split_germanic(self):
         cases = [
             (
                 "Swiss cheese is a type of dairy product.[5]", 
@@ -39,6 +39,6 @@ class TestTokenisation(unittest.TestCase):
         ]
 
         for s, expected in cases:
-            actual = list(splitGermanic(s))
+            actual = list(split_germanic(s))
             self.assertListEqual(expected, actual)
             

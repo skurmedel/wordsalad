@@ -1,9 +1,9 @@
-from wordsalad.utils import joinGermanic
+from wordsalad.utils import join_germanic
 import unittest
 
 class TestJoinGermanic(unittest.TestCase):
 
-    def test_joinGermanic(self):
+    def test_join_germanic(self):
         cases = [
             (
                 # No concat or quoting unless told to.
@@ -44,5 +44,5 @@ class TestJoinGermanic(unittest.TestCase):
         ]
 
         for input, expected, kwargs in cases:
-            actual = joinGermanic(input, **kwargs)
+            actual = join_germanic(input, **kwargs)
             self.assertEqual(expected, actual, "Expected |{0}|".format(expected))

@@ -1,7 +1,7 @@
 import string
 import random
 
-def joinGermanic(iterable, capitalize=True, quoteChars="\"", concat="'"):
+def join_germanic(iterable, capitalize=True, quoteChars="\"", concat="'"):
     """Like "".join(iterable) but with special handling, making it easier to just concatenate a list of words.
 
     Tries to join an interable as if it was a sequence of words of a generic western germanic language. Inserts a space between each word.

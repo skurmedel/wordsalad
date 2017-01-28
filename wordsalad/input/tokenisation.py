@@ -1,6 +1,6 @@
 import string
 
-def splitGermanic(text, strip={"\r"," ", "\n", "\t"}, whitespace=string.whitespace, punctuation=string.punctuation):
+def split_germanic(text, strip={"\r"," ", "\n", "\t"}, whitespace=string.whitespace, punctuation=string.punctuation):
     """Tries to split the input text as if it were natural language "germanic" text,
     like english or german.
 
