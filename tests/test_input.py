@@ -21,6 +21,13 @@ class TestTokenisation(unittest.TestCase):
 
         lst = list(split_germanic(txt, whitespace=1))
         self.assertListEqual(["ab", "c d", "ef"], lst)
+
+    def test_split_germanic_start_words(self):
+        s = "Hello my name is Gary Goat. How very nice to meet you! :) What is your name?"        
+        start_words = []
+        list(split_germanic(s, start_words=start_words))
+
+        self.assertEqual(["Hello", "How", ":)"], start_words)
     
     def test_split_germanic(self):
         cases = [
