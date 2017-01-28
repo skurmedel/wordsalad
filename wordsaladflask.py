@@ -9,8 +9,14 @@ def _get(self, n, corpus="default"):
     pass
 
 @App.route("salad/corpuses")
-def _get_corpuses(self):
-    """Fetch a list of "corpus:es" we can use as a source text.
+def _get_corpora(self):
+    """Fetch a list of "corpora" we can use as a source text.
     
     Returns the list as a JSON-list of strings."""
     pass
+
+def main():
+    app.run()
+
+if __name__ == '__main__':
+    main()
