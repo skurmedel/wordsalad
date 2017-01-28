@@ -53,7 +53,14 @@ class WordSaladMatrixBuilder():
             >>> builder.count_follower(1, 2)
             >>> builder.count_follower(2, 3)
         """
-        pass
+        it = iter(sequence)
+        prev = next(it)
+        for w in it:
+            self.count_follower(prev, w)
+            prev = w
+        
+        if endmarker is not None:
+            self.count_follower(prev, endmarker)
         
     def build_matrix(self):
         m = coo_matrix((self.data, (self.row, self.col)), shape=(self.c, self.c))
