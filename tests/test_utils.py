@@ -31,12 +31,19 @@ class TestJoinGermanic(unittest.TestCase):
             ),
             (
                 # Nested quoting is handled.
-                ["\"", "Yo", "man", "you", "'", "chill", "'", "?"],
+                ["\"", "Yo", "man", ",", "you", "'", "chill", "'", "?", "\""],
                 "\"Yo man, you 'chill'?\"",
                 {"concat": "", "quoteChars": "\"'"}
+            ),
+            (
+                # Nested quoting of the same kind.
+                ["\"", "\"", "\"", "Hello", "\"", "\"", "\"","\""],
+                "\"\"\"Hello\"\"\" \"",
+                {"concat": "", "quoteChars": "\""}
             )
         ]
 
         for input, expected, kwargs in cases:
+            print("Trying {0}".format(expected))
             actual = joinGermanic(input, **kwargs)
             self.assertEqual(expected, actual, "Expected |{0}|".format(expected))
