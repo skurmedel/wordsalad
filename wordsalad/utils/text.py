@@ -14,6 +14,8 @@ def joinGermanic(iterable, capitalize=True, quoteChars="\"", concat="'"):
 
         -   Current is not "." and the previous was ".".
         -   Previous is not in quoteChars or deemed a start quote.
+        -   Current is not in quoteChars and deemed a start quote.
+        -   Current is not "!?,:;".
     
     Any word in concat, will never have spaces around it.
 
@@ -23,8 +25,61 @@ def joinGermanic(iterable, capitalize=True, quoteChars="\"", concat="'"):
     
     For example if quoteChars="'", it won't know whether an apostrophe is an apostrophe or a quote.
     """
-    pass
-            
+    def mkcapital(w):
+        return w.capitalize()
+    
+    def nopmkcapital(w):
+        return w
+        
+    capital = mkcapital if capitalize else nopmkcapital
+
+    quoteLevels = {c: 0 for c in quoteChars}
+    
+    # Check whether c is a quote, and handle it.
+    def checkQuote(c):
+        if c in quoteChars:
+            ql = quoteLevels[c]
+            # If we have already seen this quote, decrement, if not we increment.
+            # This way we can know how many start quotes we have seen
+            if ql > 0:
+                ql -= 1
+            else:
+                ql += 1
+            quoteLevels[c] = ql
+
+    s = ""
+    last = ""
+    for w in iterable:
+        w = str(w)
+        space = True if last != "" else False
+        # Don't add spaces around concat-words.
+        if w in concat or last in concat:
+            space = False
+        # "."" followed by more "."
+        elif last.endswith("."):
+            w = capital(w)
+            if w.startswith("."):
+                space = False
+        # Remove space after last word in a sentence or certain punctuation.
+        elif w in ".!?,;:":
+            space = False
+        # The last two takes care of end and start quotes.
+        elif w in quoteChars:
+            ql = quoteLevels[w]
+            if ql == 1:
+                space = False 
+        elif last != "" and last in quoteChars:
+            ql = quoteLevels[last]
+            if ql == 1:
+                space = False
+        
+        checkQuote(w)
+        if space:
+            s += " "
+        s += w
+        last = w
+    
+    return s
 
 def mojibakify(s, bit_rot = True):
 	'''Takes an input string, destroys it and returns a byte object.
