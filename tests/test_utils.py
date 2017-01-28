@@ -38,7 +38,7 @@ class TestJoinGermanic(unittest.TestCase):
             (
                 # Nested quoting of the same kind.
                 ["\"", "\"", "\"", "Hello", "\"", "\"", "\"","\""],
-                "\"\"\"Hello\"\"\" \"",
+                "\"\" \"Hello\" \"\" \"",
                 {"concat": "", "quoteChars": "\""}
             )
         ]
