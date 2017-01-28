@@ -37,6 +37,24 @@ class WordSaladMatrixBuilder():
         self.col.append(j)
         self.data.append(1)
     
+    def count_followers_in_sequence(self, sequence, endmarker=None):
+        """Takes an iterable, and for each two words, calls count_follower.
+
+        If endmarker is not None, the last item will be added with count_follower(last, endmarker).
+
+        For example:
+
+            >>> builder = WordSaladMatrixBuilder()
+            >>> builder.count_followers_in_sequence([1, 2, 3], endmarker=None)
+        
+        Is equivalent to:
+
+            >>> builder = WordSaladMatrixBuilder()
+            >>> builder.count_follower(1, 2)
+            >>> builder.count_follower(2, 3)
+        """
+        pass
+        
     def build_matrix(self):
         m = coo_matrix((self.data, (self.row, self.col)), shape=(self.c, self.c))
         m.sum_duplicates()
