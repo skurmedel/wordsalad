@@ -118,18 +118,18 @@ class TestGenerateSentences(unittest.TestCase):
     def test_generate_sentences_n(self):
         n = random.randint(2, 15)
         sentences = generate_sentences(self.M, n, [1,2], stops=[3])
-        self.assertIs(sentences, list)
+        self.assertIs(type(sentences), list)
         self.assertEqual(n, len(sentences), "Should generate exactly n items.")
     
     def test_generate_sentences_stops(self):
         sentences = generate_sentences(self.M, 3, [1], stops=[1])
-        self.assertIs(sentences, list)
+        self.assertIs(type(sentences), list)
         for l in [list(k) for k in sentences]:
             self.assertEqual([1], l)
     
     def test_generate_sentences(self):
         sentences = generate_sentences(self.M, 2, [1, 9])
-        self.assertIs(sentences, list)
+        self.assertIs(type(sentences), list)
         lists = [list(k) for k in sentences]
         first = any(k == [1,2,3] for k in lists)
         second = any(k == [9,10,11] for k in lists)

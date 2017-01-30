@@ -1,5 +1,6 @@
 from .matrix import WordSaladMatrix
 import random
+from itertools import takewhile
 
 def draw_follower(mat, word, rng=random.uniform):
     """Draw a follower for a given word, using the given RNG function. rng 
@@ -40,7 +41,7 @@ def chain(mat, start, rng=random.uniform):
         yield w
         w = draw_follower(mat, w, rng=rng)
 
-def generate_sentences(mat, n, start_words, rng=random.uniform, stops=".?!"):
+def generate_sentences(mat, n, start_words, rng=random.uniform, stops=[]):
     """Generates n sequences of words, drawn at random from the matrix mat.
 
     Each sequence will start with a word from start_words, and end whenever there
@@ -49,4 +50,21 @@ def generate_sentences(mat, n, start_words, rng=random.uniform, stops=".?!"):
     Each sequence will be an iterable.
 
     The stop word will be included."""
-    pass
+    if type(mat) is not WordSaladMatrix:
+        raise TypeError("Expected mat to be of type WordSaladMatrix.")
+    start_words = list(start_words)
+    if len(start_words) < 1:
+        raise ValueError("Empty start_words sequence.")
+
+    def taketostop(it):
+        # Like takewhile but also returns the end item.
+        for w in it:
+            yield w
+            if w in stops:
+                break
+
+    starts = (random.choice(start_words) for i in range(0, n))
+    return [
+        taketostop(chain(mat, s, rng=rng))
+        for s in starts
+    ]
