@@ -133,7 +133,8 @@ class TestGenerateSentences(unittest.TestCase):
         lists = [list(k) for k in sentences]
         first = any(k == [1,2,3] for k in lists)
         second = any(k == [9,10,11] for k in lists)
+        self.assertEqual(len(lists), 2)
 
-        self.assertTrue(first and second, "None of the sentences matched our expected output.")
+        self.assertTrue(first or second, "None of the sentences matched our expected output.")
         
         
