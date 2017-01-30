@@ -1,8 +1,9 @@
 import unittest
 
-from wordsalad import WordSaladMatrixBuilder
-from wordsalad.generators import draw_follower, chain
+from wordsalad import WordSaladMatrixBuilder, WordSaladMatrix
+from wordsalad.generators import draw_follower, chain, generate_sentences
 from itertools import islice
+import random
 
 
 def _get_static_string_mat():
@@ -87,3 +88,52 @@ class TestChain(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             list(chain(mat, "cow"))
+
+class TestGenerateSentences(unittest.TestCase):
+
+    def setUp(self):
+        self.builder = WordSaladMatrixBuilder()        
+        self.builder.count_follower(1, 2)
+        self.builder.count_follower(2, 3)
+        self.builder.count_follower(9, 10)
+        self.builder.count_follower(10, 11)
+        self.M = self.builder.build_matrix()
+
+    def test_generate_sentences_matrix_type(self):
+        with self.assertRaises(TypeError):
+            generate_sentences(1, 2, [1,9])
+    
+    def test_generate_sentences_start_words_type(self):
+        with self.assertRaises(TypeError):
+            generate_sentences(self.M, 2, None)
+
+    def test_generate_sentences_empty_start_words(self):
+        with self.assertRaises(ValueError):
+            generate_sentences(self.M, 2, [])
+    
+    def test_generate_sentences_n_type(self):
+        with self.assertRaises(TypeError):
+            generate_sentences(self.M, "hej", [1,9])
+        
+    def test_generate_sentences_n(self):
+        n = random.randint(2, 15)
+        sentences = generate_sentences(self.M, n, [1,2], stops=[3])
+        self.assertIs(sentences, list)
+        self.assertEqual(n, len(sentences), "Should generate exactly n items.")
+    
+    def test_generate_sentences_stops(self):
+        sentences = generate_sentences(self.M, 3, [1], stops=[1])
+        self.assertIs(sentences, list)
+        for l in [list(k) for k in sentences]:
+            self.assertEqual([1], l)
+    
+    def test_generate_sentences(self):
+        sentences = generate_sentences(self.M, 2, [1, 9])
+        self.assertIs(sentences, list)
+        lists = [list(k) for k in sentences]
+        first = any(k == [1,2,3] for k in lists)
+        second = any(k == [9,10,11] for k in lists)
+
+        self.assertTrue(first and second, "None of the sentences matched our expected output.")
+        
+        

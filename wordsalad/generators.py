@@ -39,3 +39,14 @@ def chain(mat, start, rng=random.uniform):
     while w != None:
         yield w
         w = draw_follower(mat, w, rng=rng)
+
+def generate_sentences(mat, n, start_words, rng=random.uniform, stops=".?!"):
+    """Generates n sequences of words, drawn at random from the matrix mat.
+
+    Each sequence will start with a word from start_words, and end whenever there
+    are no more followers (see chain), or a word is in stops. 
+    
+    Each sequence will be an iterable.
+
+    The stop word will be included."""
+    pass
