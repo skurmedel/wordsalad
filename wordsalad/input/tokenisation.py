@@ -44,4 +44,26 @@ def group_words(words, size=2, empty=""):
     If the length of the input is not divisible by three, the last tuple will 
     have the last len(words) % size spots filled with the value of empty.
     """
-    pass
+    n = int(size)
+    if n < 2:
+        raise ValueError("size must be larger than 1.")
+
+    it = iter(words)
+    grp = []
+    try:
+        grp = [next(it)]
+    except StopIteration:
+        return []
+    
+    for w in it:
+        grp.append(w)
+
+        if len(grp) == size:
+            yield tuple(grp)
+            grp = []
+    
+    if grp != []:
+        grp += [empty] * (size - len(grp))
+    
+    yield tuple(grp)
+

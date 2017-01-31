@@ -53,11 +53,11 @@ class TestGroupWords(unittest.TestCase):
     
     def test_group_words_words_must_be_iterable(self):
         with self.assertRaises(TypeError):
-            group_words(1)
+            list(group_words(1))
     
     def test_group_words_size_must_be_int(self):
         with self.assertRaises(ValueError):
-            group_words([1,2], size="abc")
+            list(group_words([1,2], size="abc"))
     
     def test_group_words_fills_with_empty(self):
         words = [1,2,3,4,5,6,7]
@@ -65,9 +65,17 @@ class TestGroupWords(unittest.TestCase):
         self.assertIsNotNone(res)
 
         self.assertEqual(
-            res,
+            list(res),
             [
                 (1,2,3),
                 (4,5,6),
                 (7,"E", "E")
         ])
+    
+    def test_group_words_empty_sequence_gives_empty(self):
+        res = group_words([])
+        self.assertEqual(list(res), [])
+    
+    def test_group_words_size_larger_than_1(self):
+        with self.assertRaises(ValueError):
+            list(group_words([1,2,3], size=1))
