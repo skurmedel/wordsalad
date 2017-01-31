@@ -36,4 +36,12 @@ def split_germanic(text, strip={"\r"," ", "\n", "\t"}, whitespace=string.whitesp
             prevWasSentenceEnd = True
             i+=1
 
-            
+def group_words(words, size=2, empty=""):
+    """Generates pairs (tuples) of consequtive words.
+
+    Returns a generator object for a sequence of tuples.
+
+    If the length of the input is not divisible by three, the last tuple will 
+    have the last len(words) % size spots filled with the value of empty.
+    """
+    pass

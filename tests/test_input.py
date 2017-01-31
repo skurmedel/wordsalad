@@ -1,4 +1,4 @@
-from wordsalad.input import split_germanic
+from wordsalad.input import split_germanic, group_words
 import unittest
 
 class TestTokenisation(unittest.TestCase):
@@ -49,3 +49,25 @@ class TestTokenisation(unittest.TestCase):
             actual = list(split_germanic(s))
             self.assertListEqual(expected, actual)
             
+class TestGroupWords(unittest.TestCase):
+    
+    def test_group_words_words_must_be_iterable(self):
+        with self.assertRaises(TypeError):
+            group_words(1)
+    
+    def test_group_words_size_must_be_int(self):
+        with self.assertRaises(ValueError):
+            group_words([1,2], size="abc")
+    
+    def test_group_words_fills_with_empty(self):
+        words = [1,2,3,4,5,6,7]
+        res = group_words(words, size=3, empty="E")
+        self.assertIsNotNone(res)
+
+        self.assertEqual(
+            res,
+            [
+                (1,2,3),
+                (4,5,6),
+                (7,"E", "E")
+        ])
